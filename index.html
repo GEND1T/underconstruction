@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krupuk Mie T-Be - Under Construction</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Load particles.js library -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+    <style>
+        /* --- RESET & VARIABLES --- */
+        :root {
+            --primary: #f59e0b;
+            --secondary: #eab308;
+            --text-dark: #1f2937;
+            --text-light: #4b5563;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: var(--text-dark);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- PRELOADER --- */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* --- PARTICLES BACKGROUND --- */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1; /* Berada di belakang konten */
+        }
+
+        /* --- HEADER & NAVBAR (Mobile First) --- */
+        header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem;
+            width: 100%;
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: url('https://cdn-icons-png.flaticon.com/512/3480/3480487.png') center/cover; 
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+            font-weight: 400;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            position: relative;
+            padding-bottom: 5px;
+            transition: color 0.3s ease;
+        }
+
+        /* Transisi Warna Navbar saat Hover (Saran 3) */
+        nav a:hover, nav a.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background-color: var(--primary);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav a:hover::after, nav a.active::after {
+            width: 100%;
+        }
+
+        /* --- HERO SECTION (Mobile First) --- */
+        main {
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: center;
+            padding: 2rem 1.5rem;
+            min-height: calc(100vh - 100px);
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        .content {
+            text-align: center;
+            margin-top: 2rem;
+            animation: fadeInUp 1s ease forwards;
+            opacity: 0;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            color: var(--secondary);
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 4px;
+            margin-bottom: 1.5rem;
+            min-height: 30px; /* Mencegah layout lompat saat efek mengetik */
+        }
+
+        /* Kursor berkedip untuk efek mengetik */
+        .typing-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1em;
+            background-color: var(--secondary);
+            margin-left: 2px;
+            vertical-align: middle;
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(90deg, #f59e0b, #fbbf24);
+            color: white;
+            text-decoration: none;
+            padding: 12px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.5);
+            background: linear-gradient(90deg, #d97706, #f59e0b);
+        }
+
+        .cta-button:active {
+            transform: translateY(1px);
+        }
+
+        /* --- BACKGROUND ASSET --- */
+        .image-container {
+            width: 100%;
+            max-width: 400px;
+            animation: float 4s ease-in-out infinite; 
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- RESPONSIVE DESKTOP --- */
+        @media (min-width: 768px) {
+            header {
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 2rem 5%;
+            }
+            .logo-container { margin-bottom: 0; }
+            main {
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 0 5%;
+            }
+            .content {
+                text-align: left;
+                flex: 1;
+                padding-right: 2rem;
+                margin-top: 0;
+            }
+            p {
+                margin-left: 0;
+                margin-right: 0;
+                font-size: 1rem;
+            }
+            h1 { font-size: 2.5rem; }
+            .subtitle { font-size: 1.5rem; letter-spacing: 8px; }
+            .image-container {
+                flex: 1;
+                max-width: 600px;
+                display: flex;
+                justify-content: flex-end;
+            }
+            .image-container img {
+                width: 110%; 
+                transform: translateX(10%);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 4. Pre-loader (Saran 4) -->
+    <div id="preloader">
+        <div class="spinner"></div>
+        <p style="margin-top: 15px; color: var(--primary); font-weight: 600;">Memuat Halaman...</p>
+    </div>
+
+    <!-- 2. Container Partikel (Saran 2) -->
+    <div id="particles-js"></div>
+
+    <header>
+        <div class="logo-container">
+            <div class="logo-icon"></div>
+            <span>Krupuk Mie T-Be</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="content">
+            <h1>WEBSITE KERUPUK MIE T-BE</h1>
+            <!-- 1. Tempat Efek Mengetik (Saran 1) -->
+            <div class="subtitle" id="typed-text"><span class="typing-cursor"></span></div>
+            
+            <p>Nikmati Krupuk Mie renyah dan gurih, sedang dalam proses peluncuran. Kami penyempurnaan renyah dan gurih, sedang dalam proses peluncuran. Kami mempersiapkan cita rasa terbaik untuk Anda!</p>
+            
+            <a href="URL_INSTAGRAM_ANDA" target="_blank" rel="noopener noreferrer" class="cta-button">
+                PESAN PRE-ORDER
+            </a>
+        </div>
+
+        <div class="image-container">
+            <img src="/asset/WEBSITE UNDERCONSTRUCTION (2).png" alt="Under Construction Illustration">
+        </div>
+    </main>
+
+    <!-- SCRIPTS -->
+    <script>
+        // --- LOGIKA PRELOADER ---
+        window.addEventListener('load', function() {
+            const preloader = document.getElementById('preloader');
+            // Memberikan sedikit jeda agar animasi loading terlihat natural
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                    startTypingEffect(); // Mulai efek mengetik setelah preloader hilang
+                }, 500);
+            }, 800);
+        });
+
+        // --- LOGIKA EFEK MENGETIK ---
+        function startTypingEffect() {
+            const textToType = "UNDERCONSTRUCTION";
+            const targetElement = document.getElementById('typed-text');
+            const speed = 150; // Kecepatan mengetik (ms per karakter)
+            let i = 0;
+
+            // Bersihkan kontainer dan tambahkan kursor
+            targetElement.innerHTML = '<span id="typewriter-content"></span><span class="typing-cursor"></span>';
+            const contentSpan = document.getElementById('typewriter-content');
+
+            function typeWriter() {
+                if (i < textToType.length) {
+                    contentSpan.innerHTML += textToType.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, speed);
+                }
+            }
+            typeWriter();
+        }
+
+        // --- LOGIKA PARTICLES.JS ---
+        particlesJS('particles-js', {
+            "particles": {
+                "number": {
+                    "value": 40,
+                    "density": { "enable": true, "value_area": 800 }
+                },
+                "color": {
+                    "value": "#f59e0b" // Warna partikel kuning/oranye menyesuaikan tema
+                },
+                "shape": {
+                    "type": "circle"
+                },
+                "opacity": {
+                    "value": 0.3,
+                    "random": true
+                },
+                "size": {
+                    "value": 5,
+                    "random": true
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#f59e0b",
+                    "opacity": 0.2,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 1.5,
+                    "direction": "none",
+                    "random": true,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": { "enable": true, "mode": "grab" },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": { "distance": 140, "line_linked": { "opacity": 0.5 } }
+                }
+            },
+            "retina_detect": true
+        });
+    </script>
+</body>
+</html>
